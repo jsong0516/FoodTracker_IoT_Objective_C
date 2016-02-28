@@ -46,7 +46,7 @@ This specification defines the following core verbs in addition to the default <
   </tr>
   <tr>
     <td align="center"><tt>subtract</tt></td>
-    <td>Indicates that the actor has acknowledged the object. This effectively signals that the actor is aware of the object's existence.</td>
+    <td>Indicates that the actor has subtrated the object to the target. For instance, subtracting calories from the actor's daily metabolism.</td>
     <td>
       <pre>
   {
