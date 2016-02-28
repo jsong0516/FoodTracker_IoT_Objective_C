@@ -11,7 +11,7 @@ This specification defines the following core verbs in addition to the default <
 <table border="1">
   <tr><th align="left" width="5%">Verb</th><th width="50%" align="left">Description</th><th align="left" nowrap="nowrap">Example</th></tr>
   <tr>
-    <td align="center"><tt>accept</tt></td>
+    <td align="center"><tt>eat</tt></td>
     <td>Indicates that that the actor has accepted the object. For instance, a person accepting an award, or accepting an assignment.</td>
     <td nowrap="nowrap">
       <pre>
@@ -29,7 +29,7 @@ This specification defines the following core verbs in addition to the default <
     </td>
   </tr>
   <tr>
-    <td align="center"><tt>access</tt></td>
+    <td align="center"><tt>consume</tt></td>
     <td>Indicates that the actor has accessed the object. For instance, a person accessing a room, or accessing a file.</td>
     <td>
       <pre>
@@ -48,7 +48,7 @@ This specification defines the following core verbs in addition to the default <
     </td>
   </tr>
   <tr>
-    <td align="center"><tt>acknowledge</tt></td>
+    <td align="center"><tt>add</tt></td>
     <td>Indicates that the actor has acknowledged the object. This effectively signals that the actor is aware of the object's existence.</td>
     <td>
       <pre>
