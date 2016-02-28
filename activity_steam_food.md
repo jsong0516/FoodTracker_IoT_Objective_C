@@ -92,6 +92,20 @@ All Activity Stream Objects inherit the same fundamental set of basic properties
 </table>
 
 
+##Object Properties
+
+actor
+
+http://activitystrea.ms/specs/json/1.0/#activity
+
+Describes the entity that performed the activity. An activity MUST contain one actor property whose value is a single Object.
+
+content
+
+http://activitystrea.ms/specs/json/1.0/#activity
+
+Natural-language description of the activity encoded as a single JSON String containing HTML markup. Visual elements such as thumbnail images MAY be included. An activity MAY contain a content property.
+
 ## License
 
 As of [date], the following persons or entities have made this Specification available under the Open Web Foundation Agreement Version 1.0, which is available at http://www.openwebfoundation.org/legal/.
