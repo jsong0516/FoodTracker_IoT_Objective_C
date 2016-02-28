@@ -1,10 +1,8 @@
 # Activity Streams - Food
 
-This document presents Object types and Verbs for Activity Streams for Food App.
-
 ##  Introduction
 <a name="introduction" />
-This document presents Object types and Verbs for Activity Streams for Food App.
+This document presents and defines Object types and Verbs for Activity Streams for Food App which will be developed for INFO 290: Internet of Things at University of California, Berkeley.
 
 ## Verbs
 <a name="verbs" />
