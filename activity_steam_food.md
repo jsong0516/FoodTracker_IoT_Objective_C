@@ -15,16 +15,15 @@ This specification defines the following core verbs in addition to the default <
     <td>Indicates that that the actor has accepted the object. For instance, a person accepting an award, or accepting an assignment.</td>
     <td nowrap="nowrap">
       <pre>
-  {
-    "actor": {
-      "objectType": "person", 
-      "displayName": "Sally"},
-    "verb": "accept",
-    "object": {
-      "objectType": "job", 
-      "displayName": "Director of Marketing"},
-    "title": "Sally accepted the Director of Marketing job."
-  }
+{
+  "actor": {
+    "objectType": "person",
+    "displayName": "Byung Gon Song"},
+  "verb": "eat",
+  "object": {
+    "objectType": "food",
+    “displayName”: “hamburger”}
+}
       </pre>
     </td>
   </tr>
@@ -33,17 +32,15 @@ This specification defines the following core verbs in addition to the default <
     <td>Indicates that the actor has accessed the object. For instance, a person accessing a room, or accessing a file.</td>
     <td>
       <pre>
-  {
-    "actor": {
-      "objectType": "person", 
-      "displayName": "Joe"},
-    "verb": "access",
+{
+  "actor": {
+    "objectType": "person",
+    "displayName": "Byung Gon Song"},
+  "verb": "consumed",
     "object": {
-      "objectType": "file", 
-      "displayName": "4Q2012 Sales Forecast.xls"},
-    "published": "2012-12-12T12:12:12Z",
-    "title": "Joe accessed the file \"4Q2012 Sales Forecast.xls\""
-  }
+      "objectType": "food",
+      “displayName”: 700}
+}
       </pre>
     </td>
   </tr>
