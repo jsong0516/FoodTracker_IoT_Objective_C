@@ -107,6 +107,10 @@ Describes the entity that performed the activity. An activity MUST contain one a
 
 Natural-language description of the activity encoded as a single JSON String containing HTML markup. Visual elements such as thumbnail images MAY be included. An activity MAY contain a content property.
 
+## Comments
+We are re-using 'add' verb and 'collection' object type from https://github.com/activitystreams/activity-schema/blob/master/activity-schema.md because other apps consume such Activity Steams might able to consume our Activity Steam as well.
+
+
 ## License
 
 As of [date], the following persons or entities have made this Specification available under the Open Web Foundation Agreement Version 1.0, which is available at http://www.openwebfoundation.org/legal/.
