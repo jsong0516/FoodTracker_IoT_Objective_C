@@ -6,14 +6,6 @@ This document presents Object types and Verbs for Activity Streams for Food App.
 <a name="introduction" />
 This document presents Object types and Verbs for Activity Streams for Food App.
 
-### Notational Conventions
-<a name="conventions" />
-The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in RFC 2119 [RFC2119][RFC2119].
-
-This specification allows the use of IRIs [RFC3987][RFC3987].  Every URI [RFC3986][RFC3986] is also an IRI, so a URI MAY be used wherever an IRI is named.  When an IRI that is not also a URI is given for dereferencing, it MUST be mapped to a URI using the steps in Section 3.1 of [RFC3987][RFC3987].  When an IRI is serving as an identifier, it MUST NOT be so mapped.
-
-Unless otherwise specified, all properties specifying date and time values MUST conform to the "date-time" production in [RFC3339][RFC3339].  In addition, an uppercase "T" character MUST be used to separate date and time, and an uppercase "Z" character MUST be present in the absence of a numeric time zone offset.
-
 ## Verbs
 <a name="verbs" />
 This specification defines the following core verbs in addition to the default <tt>post</tt> verb that is defined in Section 6 of [activitystreams][activitystreams]:
