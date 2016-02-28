@@ -35,7 +35,7 @@ This specification defines the following core verbs in addition to the default <
 {
   "actor": {
     "objectType": "person",
-    "displayName": "Byung Gon Song"},
+    "displayName": "Aldrich"},
   "verb": "consumed",
     "object": {
       "objectType": "calories",
