@@ -39,7 +39,7 @@ This specification defines the following core verbs in addition to the default <
   "verb": "consumed",
     "object": {
       "objectType": "calories",
-      “content”: 700}
+      “displayName”: "700"}
 }
       </pre>
     </td>
@@ -109,6 +109,8 @@ Natural-language description of the activity encoded as a single JSON String con
 
 ## Comments
 We are re-using 'add' verb and 'collection' object type from https://github.com/activitystreams/activity-schema/blob/master/activity-schema.md because other apps consume such Activity Steams might able to consume our Activity Steam as well.
+
+Our "eat" verb can possibly used for nofication of the actor's meals to a external application. 
 
 
 ## License
