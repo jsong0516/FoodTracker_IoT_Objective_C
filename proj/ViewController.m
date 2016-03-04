@@ -15,17 +15,25 @@
 
 @implementation ViewController
 
+
+
+struct Nut
+{
+    int sodium;
+    int calories;
+} Nutrition;
+
 // Initially
 - (void)viewDidLoad {
     [super viewDidLoad];
 
 }
 
+// sample code found from: http://stackoverflow.com/questions/32282757/get-request-as-soon-token-received
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
     UIImage *chosenImage = info[UIImagePickerControllerEditedImage];
@@ -33,40 +41,8 @@
     [picker dismissViewControllerAnimated:YES completion:NULL];
 }
 
-- (NSString*)base64forData:(NSData*)theData {
-    
-    const uint8_t* input = (const uint8_t*)[theData bytes];
-    NSInteger length = [theData length];
-    
-    static char table[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=";
-    
-    NSMutableData* data = [NSMutableData dataWithLength:((length + 2) / 3) * 4];
-    uint8_t* output = (uint8_t*)data.mutableBytes;
-    
-    NSInteger i;
-    for (i=0; i < length; i += 3) {
-        NSInteger value = 0;
-        NSInteger j;
-        for (j = i; j < (i + 3); j++) {
-            value <<= 8;
-            
-            if (j < length) {
-                value |= (0xFF & input[j]);
-            }
-        }
-        
-        NSInteger theIndex = (i / 3) * 4;
-        output[theIndex + 0] =                    table[(value >> 18) & 0x3F];
-        output[theIndex + 1] =                    table[(value >> 12) & 0x3F];
-        output[theIndex + 2] = (i + 1) < length ? table[(value >> 6)  & 0x3F] : '=';
-        output[theIndex + 3] = (i + 2) < length ? table[(value >> 0)  & 0x3F] : '=';
-    }
-    
-    return [[NSString alloc] initWithData:data encoding:NSASCIIStringEncoding];
-}
 
-// sample code found from: http://stackoverflow.com/questions/32282757/get-request-as-soon-token-received
-NSString *tokenValue;
+NSString *tokenValue = NULL;
 - (void) requestMethod: (UIImage *)imageToConvert{
     NSString *temp = @"saved";
     NSLog(@"%@", temp);
@@ -77,80 +53,119 @@ NSString *tokenValue;
     
     NSData *imageData = UIImageJPEGRepresentation(imageToConvert , 1.0);
     [imageData writeToURL:imageURL atomically:YES];
-    NSString *base64image = [imageData base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
     NSDictionary *headers = @{@"X-Mashape-Key": @"aj10ReQC9XmshK4p3lJ9Z992GVPop1ZAovqjsn1NQIhK9kqhJB"};
     NSDictionary *parameters = @{@"focus[x]": @"480", @"focus[y]": @"640", @"image_request[altitude]": @"27.912109375", @"image_request[image]": imageURL, @"image_request[language]": @"en", @"image_request[latitude]": @"35.8714220766008", @"image_request[locale]": @"en_US", @"image_request[longitude]": @"14.3583203002251"};
-    UNIRest *post2;
-    UNIUrlConnection *asyncConnection = [[UNIRest post:^(UNISimpleRequest *request) {
-        [request setUrl:@"https://camfind.p.mashape.com/image_requests"];
-        [request setHeaders:headers];
-        [request setParameters:parameters];
-    }] asJsonAsync:^(UNIHTTPJsonResponse *response, NSError *error) {
-        NSInteger code = response.code;
-        NSDictionary *responseHeaders = response.headers;
-        UNIJsonNode *body = response.body;
-        NSData *rawBody = response.rawBody;
-        NSString *token = response.description;
-        NSDictionary *json = [NSJSONSerialization JSONObjectWithData:response.rawBody
-                                                             options:kNilOptions
-                                                               error:nil];
-        NSLog(@"Response status: %ld\n%@", (long) response.code, json);
-        for(NSString *key in [json allValues])
-        {
-            tokenValue = [json valueForKey: @"token" ];
-            NSString *two = [json valueForKey: @"token" ]; // assuming the value is indeed a string
-            NSLog(@"Token :%@", two);
-            NSString *one = @"https://camfind.p.mashape.com/image_responses" ;
-            NSDictionary *headers = @{@"X-Mashape-Key": @"9hcyYCUJEsmsh4lNTgpgVX1xRq0Ip1uogovjsn5Mte0ONVBtes", @"Accept": @"application/json"};
-            NSString *responseString = [NSString stringWithFormat:@"%@/%@", one, two];
-            NSLog(@"response URL %@", responseString);
-        }
-    }];
-
+    UNIHTTPJsonResponse* syncConnection =[[UNIRest post:^(UNISimpleRequest *request) {
+                [request setUrl:@"https://camfind.p.mashape.com/image_requests"];
+                [request setHeaders:headers];
+                [request setParameters:parameters];
+    }] asJson];
+    NSDictionary *json = [NSJSONSerialization JSONObjectWithData:syncConnection.rawBody
+                                                                 options:kNilOptions
+                                                                   error:nil];
+    NSLog(@"Finished sending");
+    for(NSString *key in [json allValues])
+    {
+        tokenValue = [json valueForKey: @"token" ];
+        NSString *two = [json valueForKey: @"token" ]; // assuming the value is indeed a string
+        NSLog(@"Token :%@", two);
+    }
 }
-NSString *label;
+NSString *label = NULL;
 NSString *status;
 - (void) responseMethod {
-    // These code snippets use an open-source library.
+    NSLog(@"Response started");
     NSString *one = @"https://camfind.p.mashape.com/image_responses" ;
     NSString *responseString = [NSString stringWithFormat:@"%@/%@", one, tokenValue];
     NSDictionary *headers = @{@"X-Mashape-Key": @"aj10ReQC9XmshK4p3lJ9Z992GVPop1ZAovqjsn1NQIhK9kqhJB", @"Accept": @"application/json"};
-    UNIUrlConnection *asyncConnection = [[UNIRest get:^(UNISimpleRequest *request) {
+    bool completed = false;
+    while (!completed) {
+    
+        UNIHTTPJsonResponse *sync = [[UNIRest get:^(UNISimpleRequest *request) {
+            [request setUrl:responseString];
+            [request setHeaders:headers];
+        }] asJson];
+        
+        NSDictionary *json = [NSJSONSerialization JSONObjectWithData:sync.rawBody
+                                                         options:kNilOptions
+                                                           error:nil];
+        NSString *status;
+        for(NSString *key in [json allValues])
+        {
+            status = [json valueForKey: @"status" ]; // assuming the value is indeed a string
+            NSString *name = [json valueForKey: @"name" ];
+            NSLog(@"status :%@", status);
+            NSLog(@"name : %@", name);
+            label = name;
+        }
+        completed = [status isEqualToString:@"completed"];
+    }
+    NSLog(@"Result done");
+    
+}
+NSString *item_name;
+NSString *cal;
+- (void) calculateCalories{
+    NSLog(@"Starting calories");
+    NSString *food = self.food.text;
+    food = [food stringByReplacingOccurrencesOfString:@" " withString:@"%20"];
+//    https://api.nutritionix.com/v1_1/search/hamburger?results=0:20&fields=item_name,brand_name,nf_sodium,nf_calories&appId=b7b85657&appKey=d707f312a6b40b3653276f3a2a02f0be
+    NSString *url = @"https://api.nutritionix.com/v1_1/search";
+    NSString *fields = @"fields=item_name,brand_name,nf_sodium,nf_calories";
+    NSString *appKeyandID = @"&appId=b7b85657&appKey=d707f312a6b40b3653276f3a2a02f0be";
+    NSString *responseString = [NSString stringWithFormat:@"%@/%@?results=0:1&%@&%@", url, food, fields, appKeyandID];
+
+        
+    UNIHTTPJsonResponse *sync = [[UNIRest get:^(UNISimpleRequest *request) {
         [request setUrl:responseString];
-        [request setHeaders:headers];
-    }] asJsonAsync:^(UNIHTTPJsonResponse *response, NSError *error) {
-        NSInteger code = response.code;
-        NSDictionary *responseHeaders = response.headers;
-        UNIJsonNode *body = response.body;
-        NSData *rawBody = response.rawBody;
-        NSDictionary *json = [NSJSONSerialization JSONObjectWithData:response.rawBody
+    }] asJson];
+    NSDictionary *json = [NSJSONSerialization JSONObjectWithData:sync.rawBody
                                                              options:kNilOptions
                                                                error:nil];
-        NSLog(@"Response status: %ld\n%@", (long) response.code, json);
-        NSLog(@"didfinishLoading responseheader%@",responseHeaders);
-    }];
+    NSArray *json_hit = [json valueForKey:@"hits"];
+    NSDictionary *json_fields = json_hit[0];
+    NSDictionary *json_fields2 = [json_fields valueForKey:@"fields"];
+    item_name = [json_fields2 valueForKey:@"item_name"];
+
+//    for(id key in json_fields2)
+//        NSLog(@"key=%@ value=%@", key, [json_fields2 objectForKey:key]);
+    
+    NSLog(@"value=%@", [json_fields2 objectForKey:@"nf_calories"]);
+    long int temp = [json_fields2 objectForKey:@"nf_calories"];
+    cal = [NSString stringWithFormat:@"%@", temp];
+    NSLog(@"LAStly %@", cal);
+    self.tier2_debug.text = item_name;
+    self.food_cal.text = cal;
+
+    NSLog(@"Finished getting calories");
 }
 
+- (IBAction) sendASBase:(NSString *)actor, (NSString *) verb, (NSString *)object {
+
+}
 
 - (IBAction)eat_this_button:(id)sender {
 
     //self.imageView.image = image;
-    self.food.text = @"Loading...";
-    self.food_cal.text = @"0";
+    self.food.text = @"Sending a picture...";
     UIImage *img = self.imageView.image;
 
+    // Tier 1
     // function call
     [self requestMethod:img];
-
     //self.imageView.image = image;
-    self.food.text = @"Reading...";
-    self.food_cal.text = @"0";
+    self.food.text = @"Classifying an object...";
+    
     // function call
     [self responseMethod];
-    
-    //self.imageView.image = image;
     self.food.text = label;
-    self.food_cal.text = @"0";
+//
+    
+    // Tier 2
+    [self calculateCalories];
+
+    
+    
 }
 
 - (IBAction)takePhoto:(id)sender {

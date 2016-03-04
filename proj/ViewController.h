@@ -13,6 +13,7 @@
 @property (strong, nonatomic) IBOutlet UIImageView *imageView;
 @property (weak, nonatomic) IBOutlet UILabel *label;
 @property (weak, nonatomic) IBOutlet UILabel *curr_cal;
+@property (weak, nonatomic) IBOutlet UILabel *tier2_debug;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *waiting;
 @property (weak, nonatomic) IBOutlet UILabel *food;
 @property (weak, nonatomic) IBOutlet UILabel *food_cal;
