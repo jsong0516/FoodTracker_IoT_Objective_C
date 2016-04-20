@@ -79,7 +79,7 @@ This specification defines the following core verbs in addition to the default <
     "verb": "publish",
     "object": {
       "objectType": "collection", 
-      "content": [300, 200, 300]
+      "displayName": [300 200 300]
     }
   }
       </pre>
