@@ -8,8 +8,33 @@
 
 #import <UIKit/UIKit.h>
 
+@import CocoaAsyncSocket;
+@import CocoaLumberjack;
 
-@interface ViewController : UIViewController <UIImagePickerControllerDelegate, UINavigationControllerDelegate>
+@class iPhoneHTTPServerViewController;
+@class HTTPServer;
+
+
+NSString *temp_str;
+
+#import "HTTPConnection.h"
+@interface MyHTTPConnection : HTTPConnection
+
+
+
+
+@end
+
+@interface ViewController : UIViewController <UIImagePickerControllerDelegate, UINavigationControllerDelegate> {
+    long tag;
+    long count;
+    GCDAsyncUdpSocket *udpSocket;
+    HTTPServer *httpServer;
+    NSDictionary *excerise_dict;
+    NSInteger food_diary[5];
+    NSInteger total_cal;
+}
+
 @property (strong, nonatomic) IBOutlet UIImageView *imageView;
 @property (weak, nonatomic) IBOutlet UILabel *label;
 @property (weak, nonatomic) IBOutlet UILabel *curr_cal;
@@ -20,6 +45,7 @@
 - (IBAction)eat_this_button:(id)sender;
 - (IBAction)takePhoto:(id)sender;
 - (IBAction)selectPhoto:(id)sender;
+
 
 
 @end
