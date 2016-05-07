@@ -66,6 +66,44 @@ This specification defines the following core verbs in addition to the default <
       </pre>
     </td>
   </tr>
+  
+  <tr>
+    <td align="center"><tt>publish</tt></td>
+    <td> Publish something. For an example, publish contents of diary. </td>
+    <td>
+      <pre>
+  {
+    "actor": {
+      "objectType": "person", 
+      "displayName": "Byung Gon Song"},
+    "verb": "publish",
+    "object": {
+      "objectType": "collection", 
+      "displayName": [300 200 300]
+    }
+  }
+      </pre>
+    </td>
+  </tr>
+  
+  <tr>
+    <td align="center"><tt>burned</tt></td>
+    <td>Indicates that the actor has burned some calories. </td>
+    <td>
+      <pre>
+  {
+    "actor": {
+      "objectType": "person", 
+      "displayName": "Byung Gon Song"},
+    "verb": "burned",
+    "object": {
+      "objectType": "calories", 
+      "content": 700}
+  }
+      </pre>
+    </td>
+  </tr>
+  
 </table>
 
 ## Object Types
